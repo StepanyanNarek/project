@@ -131,34 +131,9 @@ export default {
 .app {
   display: flex;
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: auto;
   height: 100vh;
-  background: linear-gradient(
-    50deg,
-    rgb(10, 0, 0),
-    rgb(165, 63, 88),
-    #00bfff,
-    #008080,
-    red,
-    yellow,
-    #71b995,
-    rgb(216, 207, 207),
-    rgb(97, 73, 3)
-  );
-  background-size: 100%;
-  animation: gradientBG 1s linear infinite;
-}
-
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  background: linear-gradient(45deg, rgb(70, 143, 159), rgb(0, 0, 0));
 }
 .category {
   margin: 20px;

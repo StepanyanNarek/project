@@ -33,7 +33,9 @@
         class="list-input"
         v-on:keyup.enter="createList"
       />
-    </div>
+      <button @click="addTodo(categoryName)" class="add-button">
+        Add {{ categoryName }}
+      </button></div>
   </div>
 </template>
 
@@ -133,7 +135,7 @@ export default {
   align-items: center;
   overflow-x: auto;
   height: 100vh;
-  background: linear-gradient(45deg, rgb(70, 143, 159), rgb(0, 0, 0));
+  background-image: url("./assets/img/background.png");
 }
 .category {
   margin: 20px;

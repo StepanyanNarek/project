@@ -48,12 +48,7 @@ export default {
   data() {
     return {
       categories: {
-        "Todo List": [
-          {
-            id: 1,
-            todo: "CSS",
-          },
-        ],
+        
         "In Progress": [
           {
             id: 2,
@@ -135,7 +130,6 @@ export default {
   align-items: center;
   overflow-x: auto;
   height: 100vh;
-  background-image: url("./assets/img/background.png");
 }
 .category {
   margin: 20px;

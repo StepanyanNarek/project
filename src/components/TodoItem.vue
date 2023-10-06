@@ -1,5 +1,6 @@
 <template>
   <div class="todo-item">
+    
     <div v-if="!isEditing">{{ item.todo }}</div>
     <div v-else>
       <input v-model="editedTodo" @keyup.enter="saveEdit" @blur="saveEdit" />
@@ -58,33 +59,30 @@ export default {
 }
 
 .edit-button {
-  background-color: #007bff; /* Цвет фона */
-  color: white; /* Цвет текста */
-  border: none; /* Убираем границу */
-  padding: 5px 10px; /* Отступы вокруг текста */
-  border-radius: 5px; /* Закругляем углы */
-  cursor: pointer; /* Курсор при наведении */
+  background-color: #00ffb3; 
+  color: white; 
+  border: none; 
+  padding: 5px 10px;
+  border-radius: 5px; 
+  cursor: pointer; 
 
-  /* Дополнительные стили при наведении */
   transition: background-color 0.3s ease-in-out;
 }
 
 .edit-button:hover {
-  background-color: #0056b3; /* Изменяем цвет фона при наведении */
+  background-color: #0056b3;
 }
 
-/* Стили для редактирования задачи */
 .todo-item input {
   flex: 1;
-  border: 1px solid #ccc; /* Граница для поля ввода */
-  border-radius: 5px; /* Закругляем углы */
-  padding: 5px; /* Отступы вокруг текста */
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  padding: 5px; 
 }
 
-/* Дополнительные стили для редактирования задачи при активности */
 .todo-item input:focus {
-  outline: none; /* Убираем обводку */
-  border-color: #007bff; /* Изменяем цвет границы при активности */
+  outline: none; 
+  border-color: #007bff; 
 }
 .delete-button {
   background-color: #ff0000;

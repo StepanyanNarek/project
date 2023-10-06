@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    
     <todo-list
       v-for="(category, categoryName) in categories"
       :key="categoryName"
@@ -8,7 +9,7 @@
     >
       <input
         v-model="newTodoText[categoryName]"
-        :placeholder="`Enter a new ${categoryName.toLowerCase()} todo`"
+        :placeholder="`Enter a new ${categoryName} task`"
         class="todo-input"
         v-on:keyup.enter="addTodo(categoryName)"
       />
@@ -26,16 +27,41 @@
         ></todo-item>
       </draggable>
     </todo-list>
-    <div class="create-list">
-      <input
-        v-model="newListName"
-        placeholder="Enter list name"
-        class="list-input"
-        v-on:keyup.enter="createList"
-      />
-      <button @click="addTodo(categoryName)" class="add-button">
-        Add {{ categoryName }}
-      </button></div>
+
+    <div>
+      <button
+        style="
+          height: 150px;
+          width: 150px;
+          border: none;
+          border-radius: 10px;
+          box-shadow: 12px 12px 2px 1px rgba(132, 126, 126, 0.148);
+          font-size: 50px;
+        "
+        @click="openDialog"
+      >
+        +
+      </button>
+    </div>
+
+    <DialogBox
+      :is-open="isDialogOpen"
+      title="Enter a new list name"
+      @close="closeDialog"
+    >
+      <div class="create-list">
+        <input
+          v-model="newListName"
+          placeholder="Enter a new list name"
+          class="list-input"
+          v-on:keyup.enter="createList"
+        />
+        <button @click="createList" class="add-button">
+          Add 
+        </button>
+        <button @click="closeDialog" class="add-button">Close</button>
+      </div>
+    </DialogBox>
   </div>
 </template>
 
@@ -43,56 +69,66 @@
 import TodoItem from "./components/TodoItem";
 import TodoList from "./components/TodoList";
 import draggable from "vuedraggable";
-
+import DialogBox from "./components/DialogBox.vue";
 export default {
   data() {
     return {
       categories: {
-        
-        "In Progress": [
+        "Todo List": [
           {
-            id: 2,
+            id: 1,
             todo: "JavaScript",
           },
         ],
-        Completed: [
+        "In Progress ": [
           {
-            id: 3,
+            id: 2,
             todo: "Vue.js",
           },
         ],
       },
+      
       newTodoText: {},
       newListName: "",
+      isDialogOpen: false,
     };
   },
   components: {
     TodoItem,
     TodoList,
     draggable,
+    DialogBox,
   },
   methods: {
+    openDialog() {
+      this.isDialogOpen = true;
+    },
+
+    closeDialog() {
+      this.isDialogOpen = false;
+    },
+    
     addTodo(categoryName) {
       const text = this.newTodoText[categoryName].trim();
 
       if (text === "") {
-        return; // Не добавляем пустые задачи
+        return;
       }
 
       const newTodoItem = {
-        id: Date.now(), // Генерируем уникальный ID
+        id: Date.now(),
         todo: text,
       };
 
-      this.categories[categoryName].push(newTodoItem); // Добавляем в соответствующий массив
-      this.newTodoText[categoryName] = ""; // Очищаем поле ввода
+      this.categories[categoryName].push(newTodoItem);
+      this.newTodoText[categoryName] = "";
     },
     deleteTodo(categoryName, todoId) {
       const category = this.categories[categoryName];
       const index = category.findIndex((todo) => todo.id === todoId);
 
       if (index !== -1) {
-        category.splice(index, 1); // Удаляем задачу из массива
+        category.splice(index, 1);
       }
     },
     editTodo({ id, editedTodo }) {
@@ -109,12 +145,12 @@ export default {
       const newListName = this.newListName.trim();
 
       if (newListName === "") {
-        return; // Не добавляем пустые названия списка
+        return;
       }
 
-      // Создаем новый пустой список с заданным именем
       this.categories[newListName] = [];
-      this.newListName = ""; // Очищаем поле ввода
+      this.newListName = "";
+      
     },
   },
 };
@@ -134,10 +170,10 @@ export default {
 .category {
   margin: 20px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: none;
   background-color: #f5f5f5;
   border-radius: 10px;
-  box-shadow: 12px 12px 2px 1px rgba(9, 0, 0, 0.148);
+  box-shadow: 12px 12px 2px 1px rgba(132, 126, 126, 0.148);
 }
 
 .draggable-list {
@@ -155,6 +191,7 @@ export default {
 }
 
 .todo-input {
+  width: 200px;
   padding: 5px;
   margin-top: 10px;
   border: 1px solid #ccc;
@@ -164,6 +201,7 @@ export default {
 .add-button {
   margin-top: 10px;
   padding: 5px 10px;
+  margin: 3px;
   background-color: #3cff00;
   color: #fff;
   border: none;
@@ -172,7 +210,7 @@ export default {
 }
 
 .add-button:hover {
-  background-color: #0056b3;
+  background-color: #def605;
 }
 .list-input {
   width: 70%;
@@ -183,6 +221,7 @@ export default {
 }
 
 .list-input:focus {
-  outline: none; /* Убираем рамку фокуса */
+  outline: none;
 }
+
 </style>

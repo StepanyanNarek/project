@@ -1,6 +1,5 @@
 <template>
   <div class="app">
-    
     <todo-list
       v-for="(category, categoryName) in categories"
       :key="categoryName"
@@ -56,9 +55,7 @@
           class="list-input"
           v-on:keyup.enter="createList"
         />
-        <button @click="createList" class="add-button">
-          Add 
-        </button>
+        <button @click="createList" class="add-button">Add</button>
         <button @click="closeDialog" class="add-button">Close</button>
       </div>
     </DialogBox>
@@ -80,14 +77,9 @@ export default {
             todo: "JavaScript",
           },
         ],
-        "In Progress ": [
-          {
-            id: 2,
-            todo: "Vue.js",
-          },
-        ],
+        "In Progress ": [],
       },
-      
+
       newTodoText: {},
       newListName: "",
       isDialogOpen: false,
@@ -100,14 +92,6 @@ export default {
     DialogBox,
   },
   methods: {
-    openDialog() {
-      this.isDialogOpen = true;
-    },
-
-    closeDialog() {
-      this.isDialogOpen = false;
-    },
-    
     addTodo(categoryName) {
       const text = this.newTodoText[categoryName].trim();
 
@@ -125,7 +109,7 @@ export default {
     },
     deleteTodo(categoryName, todoId) {
       const category = this.categories[categoryName];
-      const index = category.findIndex((todo) => todo.id === todoId);
+      const index = category.findIndex((todo) => todoId === todo.id);
 
       if (index !== -1) {
         category.splice(index, 1);
@@ -150,7 +134,13 @@ export default {
 
       this.categories[newListName] = [];
       this.newListName = "";
-      
+    },
+    openDialog() {
+      this.isDialogOpen = true;
+    },
+
+    closeDialog() {
+      this.isDialogOpen = false;
     },
   },
 };
@@ -223,5 +213,4 @@ export default {
 .list-input:focus {
   outline: none;
 }
-
 </style>
